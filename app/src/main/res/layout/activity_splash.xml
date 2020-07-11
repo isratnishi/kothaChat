@@ -7,9 +7,9 @@
     tools:context=".Activity.SplashActivity">
 
     <ImageView
+        android:id="@+id/ivApplogo"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:src="@drawable/app_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

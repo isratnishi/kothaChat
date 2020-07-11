@@ -17,7 +17,6 @@ import com.opus_bd.myapplication.Activity.ChatActivity;
 import com.opus_bd.myapplication.Model.User.UserListModel;
 import com.opus_bd.myapplication.R;
 import com.opus_bd.myapplication.Utils.Constants;
-import com.opus_bd.myapplication.Utils.Utilities;
 
 import java.util.List;
 
@@ -79,13 +78,13 @@ public class MemberListAdapter extends RecyclerView.Adapter<MemberListAdapter.Tr
         public void set(final UserListModel item) {
             //UI setting code
 
-            tvProfileName.setText(String.valueOf(item.getName()));
+            tvProfileName.setText(String.valueOf(item.getEmpName()));
             try {
                 Glide.with(context)
                         .applyDefaultRequestOptions(new RequestOptions()
                                 .placeholder(R.drawable.ic_person)
                                 .error(R.drawable.ic_person))
-                        .load(Constants.BASE_URL + item.getEmpPhoto())
+                        .load(Constants.BASE_URL + item.getDivisionName())
                         .into(ivUserImage);
             } catch (Exception e) {
             }
@@ -94,11 +93,12 @@ public class MemberListAdapter extends RecyclerView.Adapter<MemberListAdapter.Tr
             rootLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Constants.ReciverNmae = item.getEmpName();
                     Intent intent = new Intent(context, ChatActivity.class);
-                    intent.putExtra(ChatActivity.EXTRA_RECEIVER_ID, item.getId());
-                    Utilities.showLogcatMessage(" USER ID" + item.getId());
-                    intent.putExtra(ChatActivity.EXTRA_RECEIVER_NAME, item.getName());
-                    intent.putExtra(ChatActivity.EXTRA_RECEIVER_PHOTO, item.getEmpPhoto());
+                    intent.putExtra(ChatActivity.EXTRA_RECEIVER_ID, item.getEmployeeId());
+                    // Utilities.showLogcatMessage(" USER ID" + item.getId());
+                    intent.putExtra(ChatActivity.EXTRA_RECEIVER_NAME, item.getEmpName());
+                    intent.putExtra(ChatActivity.EXTRA_RECEIVER_PHOTO, item.getDivisionName());
                     context.startActivity(intent);
                 }
             });

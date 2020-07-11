@@ -1,7 +1,7 @@
 package com.opus_bd.myapplication.Utils;
 
 public class Constants {
-    public static final String BASE_URL = "http://4bc9de05.ngrok.io/";
+    public static final String BASE_URL = "http://220.247.164.188:8080/";
     public static final float PROGRESSBAR_ALPHA = 0.6f;
     public static final float PROGRESSBAR_AFTER_FINISH_ALPHA = 1f;
 
@@ -45,4 +45,15 @@ public class Constants {
     public static double OFFICE_LONGITUDE = 90.4077325;
     public static double OFFICE_LATITUDE = 23.7371625;
     public static double CHECK_IN_APPROVE_DISTANCE = 100;
+
+
+    //
+
+    public static String callerId;
+    public static String recipientId;
+    public static String CallState;
+
+    public static String Voice = "Voice";
+    public static String Video = "Video";
+    public static String ReciverNmae;
 }

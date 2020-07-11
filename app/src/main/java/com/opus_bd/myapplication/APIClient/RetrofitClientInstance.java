@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClientInstance {
 
-    private static final String BASE_URL = "http://103.134.88.13:65/";
+    private static final String BASE_URL = "http://220.247.164.188:8080/";
     private static Retrofit retrofit;
     private static Gson gson = new GsonBuilder()
             .setLenient()

@@ -13,6 +13,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
 
     <application
         android:allowBackup="true"
@@ -34,7 +35,9 @@
             android:theme="@style/NoActionBar" />
         <activity android:name=".Activity.Call.CallActivity" />
         <activity android:name=".Activity.GroupActivity" />
-        <activity android:name=".Activity.LoginActivity" />
+        <activity android:name=".Activity.LoginActivity">
+
+        </activity>
         <activity android:name=".Activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,6 +49,12 @@
         <activity
             android:name=".Activity.ChatActivity"
             android:theme="@style/NoActionBar" />
+
+        <activity android:name=".Activity.VoiceCall.CallActivity" />
+        <activity android:name=".Activity.VoiceCall.PlaceCallActivity" />
+        <activity android:name=".Activity.VoiceCall.BaseActivity" />
+        <activity android:name=".Activity.VoiceCall.CallScreenActivity" />
+        <activity android:name=".Activity.VoiceCall.IncomingCallScreenActivity" />
     </application>
 
 </manifest>

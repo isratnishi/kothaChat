@@ -48,7 +48,6 @@ public class SinchService extends Service {
 
     private StartFailedListener mListener;
     private PersistedSettings mSettings;
-    // SessionManager sessionManager;
 
     @Override
     public void onCreate() {
@@ -195,6 +194,21 @@ public class SinchService extends Service {
             }
             return mSinchClient.getAudioController();
         }
+
+        public Call callPhoneNumber(String phoneNumber) {
+            return mSinchClient.getCallClient().callPhoneNumber(phoneNumber);
+        }
+
+        public Call callUser(String userId) {
+            if (mSinchClient == null) {
+                return null;
+            }
+            return mSinchClient.getCallClient().callUser(userId);
+        }
+
+
+
+
     }
 
     private class MySinchClientListener implements SinchClientListener {
@@ -246,24 +260,39 @@ public class SinchService extends Service {
         public void onRegistrationCredentialsRequired(SinchClient client,
                                                       ClientRegistration clientRegistration) {
         }
+
+
     }
 
     private class SinchCallClientListener implements CallClientListener {
 
         @Override
         public void onIncomingCall(CallClient callClient, Call call) {
-            Intent intent = new Intent(SinchService.this, IncomingCallScreenActivity.class);
-            intent.putExtra(CALL_ID, call.getCallId());
+
+            if (call.getDetails().isVideoOffered()) {
+                Intent intent = new Intent(SinchService.this, IncomingCallScreenActivity.class);
+                intent.putExtra(CALL_ID, call.getCallId());
            /* intent.putExtra("USER_NAME", list.getProfile().getName());
             intent.putExtra("USER_PHOTO", list.getProfile().getPhoto());*/
 
 
-            intent.putExtra("USER_NAME", "User!");
-            intent.putExtra("USER_PHOTO", "pHOTO");
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            SinchService.this.startActivity(intent);
-        }
+                intent.putExtra("USER_NAME", "User!");
+                intent.putExtra("USER_PHOTO", "pHOTO");
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                SinchService.this.startActivity(intent);
+            } else {
+                Intent intent = new Intent(SinchService.this, com.opus_bd.myapplication.Activity.VoiceCall.IncomingCallScreenActivity.class);
+                intent.putExtra(CALL_ID, call.getCallId());
+           /* intent.putExtra("USER_NAME", list.getProfile().getName());
+            intent.putExtra("USER_PHOTO", list.getProfile().getPhoto());*/
 
+
+             /* intent.putExtra("USER_NAME", "User!");
+              intent.putExtra("USER_PHOTO", "pHOTO");*/
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                SinchService.this.startActivity(intent);
+            }
+        }
 
            /* Api.getInstance().get_user_info(call.getRemoteUserId(), new ApiListener.profileFetchListener() {
                 @Override
@@ -332,5 +361,6 @@ public class SinchService extends Service {
             editor.commit();
         }
     }
+
 }
 

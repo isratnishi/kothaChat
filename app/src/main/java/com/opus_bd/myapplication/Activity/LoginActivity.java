@@ -6,12 +6,14 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.opus_bd.myapplication.APIClient.RetrofitClientInstance;
 import com.opus_bd.myapplication.APIClient.RetrofitService;
 import com.opus_bd.myapplication.Model.User.UserLoginModel;
@@ -39,12 +41,15 @@ public class LoginActivity extends AppCompatActivity {
     ProgressBar progressbar;
     @BindView(R.id.rootLayout)
     LinearLayout rootLayout;
+    @BindView(R.id.ivApplogo)
+    ImageView ivApplogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        Glide.with(this).load(R.drawable.cchat).into(ivApplogo);
 
     }
 
@@ -78,6 +83,7 @@ public class LoginActivity extends AppCompatActivity {
                         SharedPrefManager.getInstance(LoginActivity.this).saveUserId(response.body().getId());
 
                         SharedPrefManager.getInstance(LoginActivity.this).setLoggedIn(true);
+                        Constants.callerId = SharedPrefManager.getInstance(LoginActivity.this).getUserID();
                         Utilities.showLogcatMessage("  model " + response.body());
 
                         Toast.makeText(LoginActivity.this, "Successfully Logged in!", Toast.LENGTH_SHORT).show();

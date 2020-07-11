@@ -101,6 +101,7 @@ public class ChatActivity extends AppCompatActivity {
         } catch (Exception e) {
         }
         initRecyclerView();
+        // voicecallClicked();
 
     }
 
@@ -112,8 +113,9 @@ public class ChatActivity extends AppCompatActivity {
         // Tools.setSystemBarColor(this);
     }
 
+
     private void initRecyclerView() {
-        showProgressBar(true);
+        //showProgressBar(true);
         chatAdapter = new ChatAdapter(individualChatModels, this);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -130,7 +132,7 @@ public class ChatActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 individualChatModels.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    showProgressBar(false);
+                    //showProgressBar(false);
 
                     IndividualChatModel individualChatModel = snapshot.getValue(IndividualChatModel.class);
                     if (individualChatModel != null)
@@ -190,7 +192,8 @@ public class ChatActivity extends AppCompatActivity {
         }
     }
 
-    public void CallONCLick() {
+    public void VideoONCLick() {
+
         Intent intent = new Intent(this, PlaceCallActivity.class);
         PlaceCallActivity.TARGET_CALL_ID = String.valueOf(receiverId);
 
@@ -199,6 +202,15 @@ public class ChatActivity extends AppCompatActivity {
             intent.putExtra("" + partner_name, "PATIENT_NAME");
             intent.putExtra("" + partner_photo, "USER_PHOTO");*/
         // intent.putExtra("" + 61442, "targerUser");
+        this.startActivity(intent);
+
+
+    }
+
+    public void CallONCLick() {
+
+        Constants.recipientId = String.valueOf(receiverId);
+        Intent intent = new Intent(this, com.opus_bd.myapplication.Activity.VoiceCall.PlaceCallActivity.class);
         this.startActivity(intent);
 
 
@@ -276,11 +288,10 @@ public class ChatActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.itemCall:
-                Toast.makeText(getApplicationContext(), "Call",
-                        Toast.LENGTH_SHORT).show();
+                CallONCLick();
                 return true;
             case R.id.itemVideo:
-                CallONCLick();
+                VideoONCLick();
                 return true;
             case R.id.itemSetting:
                 Toast.makeText(getApplicationContext(), "Setting",
